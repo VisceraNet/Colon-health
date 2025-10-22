@@ -1,3 +1,11 @@
+### to download models run 
+```download_models.ps1```
+or
+```download_models.bat```
+---
+
+
+
 ### Validation Classification Report
 
 | Class                  | Precision | Recall | F1-score | Support |
