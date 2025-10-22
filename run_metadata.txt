@@ -1,0 +1,6 @@
+# from gi-project root (activate dinov3)
+python dino_finetune/pack_tarballs_and_make_metadata.py \
+  --input-root /home/dev/projects/gi-project/data/unlabeled_data \
+  --output-root /home/dev/projects/gi-project/gi_dino_dataset \
+  --train 60 --val 8 --test 6 \
+  --max-side 1024 --force
