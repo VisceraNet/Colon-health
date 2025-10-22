@@ -1,8 +1,10 @@
-### to download models run 
+### to download models weights run 
+choose the vit  and lvd dataset
 ```download_models.ps1```
 or
 ```download_models.bat```
 ---
+
 
 
 
