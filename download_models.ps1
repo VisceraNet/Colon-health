@@ -62,24 +62,18 @@ function Download-File($url, $output) {
 
     Write-Host "Downloading $output ..."
     
-    $wc = New-Object System.Net.WebClient
-
-    $progress = {
-        param($sender, $e)
-        $barLength = 50
-        $pct = [int]($e.ProgressPercentage)
-        $filled = [int]($pct * $barLength / 100)
-        $empty = $barLength - $filled
-        $bar = ("█" * $filled) + ("-" * $empty)
-        Write-Host -NoNewline "`r[$bar] $pct% "
+    try {
+        # Use Invoke-WebRequest. It's synchronous (blocking) and provides 
+        # its own progress bar by default when run in an interactive console.
+        # This avoids the need for manual event handlers and loops.
+        Invoke-WebRequest -Uri $url -OutFile $output
+        
+        Write-Host "`n✅ Download completed: $output"
     }
-
-    $wc.DownloadProgressChanged += $progress
-    $wc.DownloadFileAsync($url, $output)
-
-    # Wait for completion
-    while ($wc.IsBusy) { Start-Sleep -Milliseconds 200 }
-    Write-Host "`n✅ Download completed: $output"
+    catch {
+        # Corrected the variable reference by wrapping $output in ${}
+        Write-Error "Download failed for ${output}: $_"
+    }
 }
 
 function Download-Menu($models) {
@@ -121,7 +115,7 @@ do {
         0 { Backbone-Menu }
         1 { Adapter-Menu }
         2 { break }
-        default { break }
+        default { break } # This will catch -1 from "Back"
     }
 } while ($true)
 
