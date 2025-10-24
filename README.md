@@ -25,35 +25,7 @@
 
 **Summary (macro / weighted averages):** ~**0.86** precision / recall / f1.
 
-Great — I added an **“Important commands”** section below the results table so anyone (including future you) can quickly reproduce, evaluate, debug, or tune the project. Paste this directly into your `README.md` under the Results section.
 
----
-
-# Test set results
-
-**Overall accuracy:** **`86.4338%`**
-**Total test samples:** **48,090** (14 classes × 3,435 each)
-
-|                    Class | Precision | Recall | F1-score | Support |
-| -----------------------: | :-------: | :----: | :------: | ------: |
-|     ampulla_of_vater.tar |    0.99   |  1.00  |   1.00   |   3,435 |
-|          angiectasia.tar |    0.92   |  0.83  |   0.87   |   3,435 |
-|          blood_fresh.tar |    0.96   |  0.96  |   0.96   |   3,435 |
-|        blood_hematin.tar |    0.99   |  1.00  |   0.99   |   3,435 |
-|              erosion.tar |    0.74   |  0.66  |   0.70   |   3,435 |
-|             erythema.tar |    0.83   |  0.93  |   0.88   |   3,435 |
-|         foreign_body.tar |    0.86   |  0.85  |   0.86   |   3,435 |
-|      ileocecal_valve.tar |    0.84   |  0.74  |   0.79   |   3,435 |
-|     lymphangiectasia.tar |    0.84   |  0.90  |   0.87   |   3,435 |
-|  normal_clean_mucosa.tar |    0.72   |  0.66  |   0.69   |   3,435 |
-|                polyp.tar |    0.95   |  1.00  |   0.97   |   3,435 |
-|              pylorus.tar |    0.74   |  0.83  |   0.78   |   3,435 |
-| reduced_mucosal_view.tar |    0.81   |  0.89  |   0.85   |   3,435 |
-|                ulcer.tar |    0.90   |  0.83  |   0.87   |   3,435 |
-
-**Summary (macro / weighted avg):** ~**0.86** precision / recall / f1.
-
----
 
 # Important commands
 
@@ -221,7 +193,7 @@ PY
 
 * If you hit OOM, reduce `--batch_size` (e.g., 96 → 64 → 48) or reduce `--workers`.
 * If WSL freezes: use tmux, avoid `torch.compile` on WSL initially, and use `wsl --shutdown` if you must kill the VM.
-* To improve low-recall classes (e.g., `erosion`, `normal_clean_mucosa`): add targeted augmentation, oversample those classes, or fine-tune top blocks with a lower LR.
+
 
 ---
 
