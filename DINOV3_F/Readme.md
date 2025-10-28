@@ -69,8 +69,3 @@ This matrix shows the true vs. predicted classifications, where the rows represe
 | **1\_ulcerative\_colitis** | 4 | **186** | 8 | 2 | 200 |
 | **2\_polyps** | 10 | 7 | **182** | 1 | 200 |
 | **3\_esophagitis** | 3 | 1 | 0 | **196** | 200 |
-
-### **Analysis of Misclassifications (Errors):**
-
-
----
