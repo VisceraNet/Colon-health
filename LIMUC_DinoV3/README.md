@@ -1,6 +1,3 @@
-That's a lot of useful data from your model testing! Here is a structured README based on the output, designed to clearly present the model's performance.
-
----
 ## 📝 README: Mayo Clinic Severity Classification Model
 
 ### 🌟 Overview
