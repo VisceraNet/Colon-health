@@ -1,6 +1,0 @@
-PYTHONPATH=${PWD} python -m dinov3.run.submit dinov3/eval/linear.py \
-  model.config_file=/home/dev/projects/gi-project/outputs/dinov3_pretrain/config.yaml \
-  model.pretrained_weights=/home/dev/projects/gi-project/outputs/dinov3_pretrain/eval/teacher_checkpoint.pth \
-  output_dir=/home/dev/projects/gi-project/outputs/dinov3_pretrain/eval_linear \
-  train.dataset=ImageNet:split=TRAIN:root=/home/dev/projects/gi-project/gi_dino_dataset/tarballs:extra=/home/dev/projects/gi-project/gi_dino_dataset/extra \
-  train.val_dataset=ImageNet:split=VAL:root=/home/dev/projects/gi-project/gi_dino_dataset/tarballs:extra=/home/dev/projects/gi-project/gi_dino_dataset/extra
