@@ -1,0 +1,34 @@
+Based on post-hoc analysis, CNN-Transformer hybrid architecture, and the focus on intermediate 
+feature maps, the standard Grad-CAM method is likely insufficient as it destroys high-resolution 
+spatial information. The analysis indicates that retaining spatial details from intermediate layers 
+is crucial for this specific architectural context. For further analysis, visit the original source. 
+
+
+
+Layer-CAM is the most suitable method for your specific constraints (intermediate layers, spatial preservation, and CNN-Transformer hybrid).
+For your specific "post-hoc interrogation" approach where you analyze intermediate CNN feature maps to preserve spatial structure, standard Grad-CAM is mathematically ill-suited.
+Primary Recommendation: Layer-CAM
+Why it fits your protocol:
+Solves the Intermediate Layer Problem: Standard Grad-CAM calculates a single scalar weight (via Global Average Pooling) for each feature map. When applied to intermediate layers (which have high spatial resolution), this destroys the fine-grained spatial importance of the gradients.
+Mechanism: Layer-CAM computes pixel-wise weights (using element-wise multiplication of gradients and activations). This allows it to highlight specific spatial locations within a single feature map, rather than weighting the whole map uniformly.
+Result: It produces reliable, high-resolution heatmaps even from earlier convolutional layers, exactly matching your requirement to "preserve spatial structure" before the transformer aggregation. 
+Secondary Recommendation: Score-CAM
+Why it fits:
+Gradient-Free Stability: If you find your gradients are noisy (common in medical models trained with complex losses), Score-CAM is a robust alternative. It masks the input with the feature map and checks the forward-pass score.
+Trade-off: It is computationally expensive. If your intermediate layer has 512 channels, Score-CAM requires 512 forward passes per image. Since you are doing this post-hoc (not during training), this latency is likely acceptable for the gain in faithfulness. 
+Why NOT Standard Grad-CAM?
+Loss of Detail: By averaging gradients, Grad-CAM "smears" the importance. In WCE images, where a lesion might be a small texture change, Grad-CAM on an intermediate layer often produces a coarse blob that doesn't align with the actual mucosal pattern you are trying to study. 
+Implementation Strategy for Your "Binary vs. Ordinal" Setup
+Since you have two heads, you must generate two separate sets of maps for the same input image to inspect the divergence.
+For the Binary Head (Active vs. Remission):
+Target: The logit for the "Active" class.
+Method: Layer-CAM on the final CNN block (just before the Transformer fusion).
+Goal: Verify if the model focuses on the lesion itself or irrelevant bubbles/debris (common WCE artifacts).
+For the Ordinal Head (Mayo 0-3):
+Target: The logit for the predicted severity class (e.g., Mayo 2).
+Goal: Compare the Mayo 2 map vs. the Mayo 3 map.
+Insight: If the attention covers a larger surface area for Mayo 3 than Mayo 2, it confirms your model essentially learned "extent of disease" as a proxy for severity (a common clinically valid heuristic).
+Summary: Switch to Layer-CAM to properly utilize the spatial resolution of your intermediate layers. Use Score-CAM as a validator if the gradient-based maps look noisy.
+
+
+
