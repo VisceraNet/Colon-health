@@ -34,7 +34,7 @@ The model favors high precision while maintaining strong recall.
 ## Visual Results
 Training curves, metrics, and confusion matrix:
 
-![Colon-health](Stage_2_b/results.png)
+![Colon-health](results.png)
 
 ## Notes
 - Few false positives on background.
