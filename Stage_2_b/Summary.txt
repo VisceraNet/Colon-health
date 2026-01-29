@@ -1,0 +1,51 @@
+Dataset: 200 images, 213 instances (from val printout).
+
+Training progressed for 150 epochs; the screenshots you sent show the last epochs (≈113–124).
+
+Training and validation losses (box, seg, cls, dfl) steadily decreased and have largely plateaued, indicating that the model is close to convergence.
+
+Detection (box) metrics are strong: Box mAP50 ≈ 0.92–0.94, mAP50-95 ≈ 0.75–0.78.
+
+Segmentation (mask) metrics are also powerful: Mask mAP50 ≈ 0.93–0.95, Mask mAP50-95 ≈ 0.76–0.77.
+
+Precision and recall (per-printout): Mask Precision ≈ 0.92–0.94, Mask Recall ≈ 0.85–0.90. Overall, the model favours high precision with very good recall — good for avoiding false positives while still finding most objects.
+
+
+Confusion matrix interpretation
+
+(From the plot you provided, axes look like Predicted (rows) × True (columns).)
+
+True Positives (predicted object & true object) = 194
+
+False Positives (predicted object but true background) = 29
+
+False Negatives (predicted background but true object) = 19
+
+
+From those:
+
+Precision = TP / (TP + FP) = 194 / (194 + 29) ≈ 0.87
+
+Recall = TP / (TP + FN) = 194 / (194 + 19) ≈ 0.91
+
+F1 ≈ 0.89
+
+
+What’s going well
+
+Smooth loss curves with no large oscillations → stable training.
+
+High mAP50 for both box and mask → very good accuracy at typical IoU threshold.
+
+Reasonable mAP50-95 (~0.75) → model is robust across IoU thresholds (not only easy matches).
+
+The confusion matrix shows many true positives and relatively few misses.
+
+
+Weaknesses/places to improve
+
+False positives (≈29): some spurious detections on background.
+
+False negatives (≈19): small number of missed objects — likely small/occluded/low-contrast cases.
+
+mAP50-95 < mAP50 (gap exists) — model is less precise at high IoU, indicating boundaries could be sharpened.
