@@ -1,37 +1,50 @@
-# ResEffFusion – Masked Medical Image Classification
+# 🧠 ResEffFusion – Masked Medical Image Classification
 
-Efficient and explainable fusion model for gastrointestinal disease classification using masked images.
-
----
-
-## Model Architecture
-
-**ResEffFusion** combines:
-
-* **EfficientNet-B4**
-* **ResNet-50**
-
-Fusion strategy:
-
-* Extract final feature maps from both backbones
-* Project to 1024 channels
-* Weighted fusion (`EFF_WEIGHT = 0.75` default)
-* BatchNorm → ReLU (non-inplace for Grad-CAM++)
-* Global Average Pooling → Linear classifier
-
-Designed for:
-
-* High accuracy
-* Mask-aware training
-* Grad-CAM++ interpretability
+Efficient and explainable hybrid fusion model for **gastrointestinal disease classification** using mask-aware training.
 
 ---
 
-## Dataset
+# 🏗️ Model Architecture
 
-Masked image classification (mask file: `<image>_mask.png`)
+## 🔷 ResEffFusion (EffResFusion)
 
-Classes:
+ResEffFusion combines two strong CNN backbones:
+
+- **EfficientNet-B4**
+- **ResNet-50**
+
+### 🔬 Fusion Strategy
+
+1. Extract final feature maps from both backbones  
+2. Project both to **1024 channels**
+3. Weighted fusion  
+   ```
+   F = 0.75 × EfficientNet + 0.25 × ResNet
+   ```
+4. BatchNorm → ReLU (non-inplace, Grad-CAM++ safe)
+5. Global Average Pooling
+6. Fully connected classifier
+
+### 🎯 Design Goals
+
+- High classification accuracy  
+- Mask-aware learning  
+- Strong generalization  
+- Grad-CAM++ interpretability  
+
+---
+
+# 📂 Dataset
+
+Masked medical image classification.
+
+Each image has an associated mask:
+
+```
+<image_name>_mask.png
+```
+
+### 🏷️ Classes
 
 ```
 0_normal
@@ -40,35 +53,123 @@ Classes:
 3_esophagitis
 ```
 
-Masked-out pixels are replaced with ImageNet mean before normalization.
+### 🧪 Mask Handling Strategy
+
+Masked-out pixels are replaced with **ImageNet mean values** before normalization.
+
+This ensures:
+- No artificial zero bias
+- Stable backbone feature extraction
+- Proper masked region suppression
 
 ---
 
-## Final Test Performance
+# 📊 Final Test Performance
 
-| Model            | Accuracy   | Macro F1   | ROC-AUC    | PR-AUC     |
-| ---------------- | ---------- | ---------- | ---------- | ---------- |
-| ResNet50         | 0.9802     | 0.9816     | 0.9994     | 0.9985     |
-| EfficientNet-B4  | 0.9829     | 0.9848     | 0.9995     | 0.9988     |
-| ViT              | 0.8855     | 0.8974     | 0.9798     | 0.9563     |
-| **EffResFusion** | **0.9847** | **0.9854** | **0.9997** | **0.9993** |
+| Model            | Accuracy   | Macro F1   | Macro ROC-AUC | Macro PR-AUC |
+|------------------|------------|------------|---------------|--------------|
+| ResNet50         | 0.9802     | 0.9816     | 0.9994        | 0.9985       |
+| EfficientNet-B4  | 0.9829     | 0.9848     | 0.9995        | 0.9988       |
+| ViT              | 0.8855     | 0.8974     | 0.9798        | 0.9563       |
+| **EffResFusion** | **0.9847** | **0.9854** | **0.9997**    | **0.9993**   |
 
-Fusion model achieves the best overall performance.
+🏆 **Fusion model achieves best overall performance across all macro metrics.**
+
+---
+
+# 📈 Stage 1 – Visual Evaluation
+
+Plots directory:
+
+```
+Stage_1_final/plots_comparing_models/
+```
 
 ---
 
-## Training Features
+## 🔷 ResNet50
 
-* Mixed Precision (AMP)
-* Cosine LR Scheduler
-* Early Stopping
-* Best checkpoint saving
-* Full train/val/test evaluation
-* Confusion matrix, ROC & PR curves
-* Grad-CAM++ visualizations
-* CSV metrics export
+| Confusion Matrix | Normalized CM | Precision-Recall |
+|------------------|---------------|------------------|
+| ![](Stage_1_final/plots_comparing_models/ResNet50_cm.png) | ![](Stage_1_final/plots_comparing_models/ResNet50_cm_norm.png) | ![](Stage_1_final/plots_comparing_models/ResNet50_pr.png) |
+
+| ROC Curve |
+|-----------|
+| ![](Stage_1_final/plots_comparing_models/ResNet50_roc.png) |
 
 ---
-## Summary
 
-ResEffFusion is a high-performance, mask-aware fusion network combining EfficientNet-B4 and ResNet-50, achieving **98.47% accuracy** with strong interpretability via Grad-CAM++.
+## 🔷 EfficientNet-B4
+
+| Confusion Matrix | Normalized CM | Precision-Recall |
+|------------------|---------------|------------------|
+| ![](Stage_1_final/plots_comparing_models/EfficientNet-B4_cm.png) | ![](Stage_1_final/plots_comparing_models/EfficientNet-B4_cm_norm.png) | ![](Stage_1_final/plots_comparing_models/EfficientNet-B4_pr.png) |
+
+| ROC Curve |
+|-----------|
+| ![](Stage_1_final/plots_comparing_models/EfficientNet-B4_roc.png) |
+
+---
+
+## 🔷 Vision Transformer (ViT)
+
+| Confusion Matrix | Normalized CM | Precision-Recall |
+|------------------|---------------|------------------|
+| ![](Stage_1_final/plots_comparing_models/ViT_cm.png) | ![](Stage_1_final/plots_comparing_models/ViT_cm_norm.png) | ![](Stage_1_final/plots_comparing_models/ViT_pr.png) |
+
+| ROC Curve |
+|-----------|
+| ![](Stage_1_final/plots_comparing_models/ViT_roc.png) |
+
+---
+
+## 🔷 Hybrid Model – ResEffFusion
+
+| Confusion Matrix | Normalized CM | Precision-Recall |
+|------------------|---------------|------------------|
+| ![](Stage_1_final/plots_comparing_models/Hybrid_cm.png) | ![](Stage_1_final/plots_comparing_models/Hybrid_cm_norm.png) | ![](Stage_1_final/plots_comparing_models/Hybrid_pr.png) |
+
+| ROC Curve |
+|-----------|
+| ![](Stage_1_final/plots_comparing_models/Hybrid_roc.png) |
+
+---
+
+# 🚀 Training Features
+
+- Mixed Precision Training (AMP)
+- Cosine Learning Rate Scheduler
+- Early Stopping
+- Best checkpoint saving
+- Full train / validation / test evaluation
+- Confusion Matrix, ROC & PR curve generation
+- Grad-CAM++ visualizations
+- CSV metric export for analysis
+
+---
+
+# 📝 Key Observations
+
+- CNN-based models outperform ViT on masked GI dataset.
+- EfficientNet-B4 slightly surpasses ResNet50.
+- The weighted fusion strategy further improves macro metrics.
+- Near-perfect ROC-AUC confirms strong separability.
+- Grad-CAM++ shows medically meaningful attention localization.
+
+---
+
+# 📌 Summary
+
+**ResEffFusion** is a high-performance, mask-aware hybrid architecture combining EfficientNet-B4 and ResNet-50.
+
+It achieves:
+
+> 🎯 **98.47% Accuracy**  
+> 🎯 **98.54% Macro F1**  
+> 🎯 **0.9997 ROC-AUC**  
+
+with strong interpretability via **Grad-CAM++**.
+
+Designed for robust and explainable gastrointestinal disease classification.
+
+---
