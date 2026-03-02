@@ -18,9 +18,11 @@ ResEffFusion combines two strong CNN backbones:
 1. Extract final feature maps from both backbones  
 2. Project both to **1024 channels**
 3. Weighted fusion  
+
    ```
    F = 0.75 × EfficientNet + 0.25 × ResNet
    ```
+
 4. BatchNorm → ReLU (non-inplace, Grad-CAM++ safe)
 5. Global Average Pooling
 6. Fully connected classifier
@@ -58,20 +60,20 @@ Each image has an associated mask:
 Masked-out pixels are replaced with **ImageNet mean values** before normalization.
 
 This ensures:
-- No artificial zero bias
-- Stable backbone feature extraction
-- Proper masked region suppression
+- No artificial zero bias  
+- Stable backbone feature extraction  
+- Proper masked region suppression  
 
 ---
 
 # 📊 Final Test Performance
 
-| Model            | Accuracy   | Macro F1   | Macro ROC-AUC | Macro PR-AUC |
-|------------------|------------|------------|---------------|--------------|
-| ResNet50         | 0.9802     | 0.9816     | 0.9994        | 0.9985       |
-| EfficientNet-B4  | 0.9829     | 0.9848     | 0.9995        | 0.9988       |
-| ViT              | 0.8855     | 0.8974     | 0.9798        | 0.9563       |
-| **EffResFusion** | **0.9847** | **0.9854** | **0.9997**    | **0.9993**   |
+| Model            | Accuracy | Macro F1 | Macro ROC-AUC | Macro PR-AUC |
+|------------------|----------|----------|---------------|--------------|
+| ResNet50         | 0.9802   | 0.9816   | 0.9994        | 0.9985       |
+| EfficientNet-B4  | 0.9829   | 0.9848   | 0.9995        | 0.9988       |
+| ViT              | 0.8855   | 0.8974   | 0.9798        | 0.9563       |
+| **EffResFusion** | **0.9847** | **0.9854** | **0.9997** | **0.9993** |
 
 🏆 **Fusion model achieves best overall performance across all macro metrics.**
 
@@ -91,11 +93,11 @@ Stage_1_final/plots_comparing_models/
 
 | Confusion Matrix | Normalized CM | Precision-Recall |
 |------------------|---------------|------------------|
-| ![](Stage_1_final/plots_comparing_models/ResNet50_cm.png) | ![](Stage_1_final/plots_comparing_models/ResNet50_cm_norm.png) | ![](Stage_1_final/plots_comparing_models/ResNet50_pr.png) |
+| ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/ResNet50_cm.png) | ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/ResNet50_cm_norm.png) | ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/ResNet50_pr.png) |
 
 | ROC Curve |
 |-----------|
-| ![](Stage_1_final/plots_comparing_models/ResNet50_roc.png) |
+| ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/ResNet50_roc.png) |
 
 ---
 
@@ -103,11 +105,11 @@ Stage_1_final/plots_comparing_models/
 
 | Confusion Matrix | Normalized CM | Precision-Recall |
 |------------------|---------------|------------------|
-| ![](Stage_1_final/plots_comparing_models/EfficientNet-B4_cm.png) | ![](Stage_1_final/plots_comparing_models/EfficientNet-B4_cm_norm.png) | ![](Stage_1_final/plots_comparing_models/EfficientNet-B4_pr.png) |
+| ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/EfficientNet-B4_cm.png) | ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/EfficientNet-B4_cm_norm.png) | ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/EfficientNet-B4_pr.png) |
 
 | ROC Curve |
 |-----------|
-| ![](Stage_1_final/plots_comparing_models/EfficientNet-B4_roc.png) |
+| ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/EfficientNet-B4_roc.png) |
 
 ---
 
@@ -115,11 +117,11 @@ Stage_1_final/plots_comparing_models/
 
 | Confusion Matrix | Normalized CM | Precision-Recall |
 |------------------|---------------|------------------|
-| ![](Stage_1_final/plots_comparing_models/ViT_cm.png) | ![](Stage_1_final/plots_comparing_models/ViT_cm_norm.png) | ![](Stage_1_final/plots_comparing_models/ViT_pr.png) |
+| ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/ViT_cm.png) | ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/ViT_cm_norm.png) | ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/ViT_pr.png) |
 
 | ROC Curve |
 |-----------|
-| ![](Stage_1_final/plots_comparing_models/ViT_roc.png) |
+| ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/ViT_roc.png) |
 
 ---
 
@@ -127,11 +129,11 @@ Stage_1_final/plots_comparing_models/
 
 | Confusion Matrix | Normalized CM | Precision-Recall |
 |------------------|---------------|------------------|
-| ![](Stage_1_final/plots_comparing_models/Hybrid_cm.png) | ![](Stage_1_final/plots_comparing_models/Hybrid_cm_norm.png) | ![](Stage_1_final/plots_comparing_models/Hybrid_pr.png) |
+| ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/Hybrid_cm.png) | ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/Hybrid_cm_norm.png) | ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/Hybrid_pr.png) |
 
 | ROC Curve |
 |-----------|
-| ![](Stage_1_final/plots_comparing_models/Hybrid_roc.png) |
+| ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/Hybrid_roc.png) |
 
 ---
 
@@ -154,7 +156,7 @@ Stage_1_final/plots_comparing_models/
 - EfficientNet-B4 slightly surpasses ResNet50.
 - The weighted fusion strategy further improves macro metrics.
 - Near-perfect ROC-AUC confirms strong separability.
-- Grad-CAM++ shows medically meaningful attention localization.
+- Grad-CAM++ highlights medically meaningful attention regions.
 
 ---
 
