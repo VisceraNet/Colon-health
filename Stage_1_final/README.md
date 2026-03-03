@@ -129,11 +129,11 @@ Stage_1_final/plots_comparing_models/
 
 | Confusion Matrix | Normalized CM | Precision-Recall |
 |------------------|---------------|------------------|
-| ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/Hybrid_cm.png) | ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/Hybrid_cm_norm.png) | ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/Hybrid_pr.png) |
+| ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/training_plots/confusion_matrix.png) | ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/training_plots/confusion_matrix_normalized.png) | ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/training_plots/pr_curves.png) |
 
 | ROC Curve |
 |-----------|
-| ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/plots_comparing_models/Hybrid_roc.png) |
+| ![](https://raw.githubusercontent.com/VisceraNet/Colon-health/final/Stage_1_final/training_plots/roc_curves.png) |
 
 ---
 
